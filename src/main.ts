@@ -7,11 +7,11 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Users API')
     .setDescription('This is a sample REST API')
+    .addServer('http://localhost:8080/', 'Local environment')
+    .addServer('https://dsm-backup-server.vercel.app/', 'Production')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {
-    swaggerOptions: { defaultModelsExpandDepth: -1 },
-  });
-  await app.listen('8080');
+  SwaggerModule.setup('api', app, document);
+  await app.listen(process.env.PORT || '8080');
 }
 bootstrap();
