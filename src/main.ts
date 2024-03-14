@@ -6,12 +6,12 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Users API')
-    .setDescription('This is a sample REST API')
-    .addServer('http://localhost:8080/', 'Local environment')
+    .setTitle('DSM Backup API')
+    .setDescription('Backup 프로젝트에 사용되는 API 에요.')
+    .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
   await app.listen(process.env.PORT || '8080');
 }
 bootstrap();
