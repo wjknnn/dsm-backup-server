@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('Users API')
     .setDescription('This is a sample REST API')
     .addServer('http://localhost:8080/', 'Local environment')
-    .addServer('https://dsm-backup-server.vercel.app/', 'Production')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
