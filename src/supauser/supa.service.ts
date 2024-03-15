@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { CreateUserDto } from './dto/create-user.dto';
+import { Supa } from './entities/supa.entity';
 
 @Injectable()
 export class SupabaseService {
@@ -8,9 +10,6 @@ export class SupabaseService {
   constructor() {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-    console.log(supabaseUrl);
-    console.log(supabaseKey);
 
     if (!supabaseUrl || !supabaseKey) {
       throw new Error(
@@ -22,6 +21,34 @@ export class SupabaseService {
   }
 
   async getAllUsers() {
-    return await this.supabase.from('users').select('*');
+    const { data, error } = await this.supabase.from('supausers').select('*');
+
+    if (error) {
+      throw new Error('Failed to fetch users');
+    }
+
+    console.log('✨ sucess get all users.');
+
+    return data;
+  }
+
+  async createUser(createUserDto: CreateUserDto) {
+    const { name, password, profileImage } = createUserDto;
+
+    const timeZone = 'Asia/Seoul';
+    const currentTime = new Date().toLocaleString('en-US', { timeZone });
+
+    const { data, error } = await this.supabase.from('supausers').insert<Supa>({
+      name: name,
+      password: password,
+      profile_image: profileImage || null,
+      created_at: currentTime,
+    });
+
+    if (error) {
+      throw new Error('Failed to create user');
+    }
+
+    return data;
   }
 }
