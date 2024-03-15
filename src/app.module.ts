@@ -16,7 +16,7 @@ import { SupaUsersModule } from './supauser/supa.module';
       username: process.env.SUPABASE_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: 'postgres',
-      synchronize: true, // 이 옵션은 개발 시에만 사용하며, 프로덕션 환경에서는 사용하지 않는 것이 좋습니다.
+      synchronize: process.env.ISDEV === 'develop' ? true : false,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     UsersModule,
