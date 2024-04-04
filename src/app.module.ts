@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SupaUsersModule } from './supauser/supa.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -18,6 +19,10 @@ import { SupaUsersModule } from './supauser/supa.module';
       database: 'postgres',
       synchronize: process.env.ISDEV === 'develop' ? true : false,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '2h' },
     }),
     UsersModule,
     SupaUsersModule,
