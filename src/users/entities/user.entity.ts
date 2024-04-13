@@ -1,8 +1,11 @@
 export class User {
-  id: number;
+  id?: number;
   name: string;
-  email: string;
-  phone?: string;
-  createAt: Date;
-  updatedAt?: Date;
+  school?: {
+    schoolName: string;
+    grade: number;
+  };
+  profile_image?: string;
+  created_at: string;
+  updated_at?: string;
 }
