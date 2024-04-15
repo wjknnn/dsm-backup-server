@@ -21,14 +21,14 @@ export class UsersService {
   }
 
   async signupUser(createUserDto: CreateUserDto) {
-    const { name, school, profileImage } = createUserDto;
+    const { name, grade, profileImage } = createUserDto;
 
     const timeZone = 'Asia/Seoul';
     const currentTime = new Date().toLocaleString('en-US', { timeZone });
 
     const { data, error } = await this.supabase.from('users').insert<User>({
       name: name,
-      school: school || null,
+      school_grade: grade || null,
       profile_image: profileImage || null,
       created_at: currentTime,
     });

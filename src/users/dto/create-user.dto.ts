@@ -5,21 +5,23 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class SchoolDto {
-  @IsString()
-  schoolName: string;
+// class SchoolDto {
+//   @IsString()
+//   schoolName: string;
 
-  @IsNumber()
-  grade: number;
-}
+//   @IsNumber()
+//   grade: number;
+// }
 
 export class CreateUserDto {
   @IsString()
   name: string;
 
-  @ValidateNested()
+  // @ValidateNested()
+  // @IsOptional()
+  // school?: SchoolDto;
   @IsOptional()
-  school?: SchoolDto;
+  grade?: number;
 
   @IsOptional()
   profileImage?: string;
