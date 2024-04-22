@@ -16,13 +16,17 @@ export class AuthGuard implements CanActivate {
     const authorization = request.headers.authorization;
 
     if (!authorization) {
-      throw new BadRequestException();
+      throw new BadRequestException(
+        'Bearer Token is null. Please add Bearer Token in request',
+      );
     }
 
     const [bearer, token] = authorization.split(' ');
 
     if (bearer !== 'Bearer' || !token) {
-      throw new BadRequestException();
+      throw new BadRequestException(
+        'Bearer Token is null. Please add Bearer Token in request',
+      );
     }
 
     try {
