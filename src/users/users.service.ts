@@ -5,11 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
-import {
-  GoTrueClient,
-  SupabaseClient,
-  createClient,
-} from '@supabase/supabase-js';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class UsersService {
@@ -80,7 +76,6 @@ export class AuthService {
   }
 
   async deleteUser(id: string) {
-    const adminAuthClient: GoTrueClient = this.supabase.auth;
     const { error: userError } = await this.supabase
       .from('users')
       .delete()
@@ -91,7 +86,8 @@ export class AuthService {
       throw new BadRequestException('user id is not valid.');
     }
 
-    const { error: authUserError } = await adminAuthClient.admin.deleteUser(id);
+    const { error: authUserError } =
+      await this.supabase.auth.admin.deleteUser(id);
 
     if (authUserError) {
       console.log(authUserError);
