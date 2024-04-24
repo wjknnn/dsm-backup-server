@@ -2,26 +2,23 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/main.js",
+      "src": "src/main.ts",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/api/docs/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/docs/(.*)",
-      "dest": "dist/main.js"
+      "dest": "/public/api/docs/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "dist/main.js"
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
     }
-  ],
-  "functions": {
-    "generateSwagger": {
-      "runtime": "nodejs14.x",
-      "memory": 1024,
-      "maxDuration": 10,
-      "includeFiles": "dist/main.js"
-    }
-  }
+  ]
 }
