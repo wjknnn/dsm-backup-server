@@ -76,6 +76,7 @@ export class AuthService {
   }
 
   async deleteUser(id: string) {
+    const adminAuthClient = this.supabase.auth.admin;
     const { error: userError } = await this.supabase
       .from('users')
       .delete()
@@ -86,8 +87,7 @@ export class AuthService {
       throw new BadRequestException('user id is not valid.');
     }
 
-    const { error: authUserError } =
-      await this.supabase.auth.admin.deleteUser(id);
+    const { error: authUserError } = await adminAuthClient.deleteUser(id);
 
     if (authUserError) {
       console.log(authUserError);
