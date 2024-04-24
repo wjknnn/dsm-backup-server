@@ -21,7 +21,7 @@
       "runtime": "nodejs14.x",
       "memory": 1024,
       "maxDuration": 10,
-      "includeFiles": ["dist/main.js"]
+      "includeFiles": "dist/main.js"
     }
   }
 }
