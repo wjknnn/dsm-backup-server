@@ -40,14 +40,15 @@ export class UsersService {
     });
 
     if (error) {
-      throw new Error('Failed to signup');
+      throw new BadRequestException(
+        'Failed to signup. maybe userId was wrong.',
+      );
     }
 
     return data;
   }
 
   async getUserData(id: string) {
-    console.log('called!');
     const { data, error } = await this.supabase
       .from('users')
       .select('*')

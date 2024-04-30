@@ -4,8 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SupaUsersModule } from './supauser/supa.module';
 import { JwtModule } from '@nestjs/jwt';
+import { TopicModule } from './topic/topic.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '2h' },
     }),
     UsersModule,
-    SupaUsersModule,
+    TopicModule,
   ],
   controllers: [AppController],
   providers: [AppService],
