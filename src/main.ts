@@ -13,6 +13,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('DSM Backup API')
     .setDescription('Backup 프로젝트에 사용되는 API 에요.')
