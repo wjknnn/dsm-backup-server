@@ -2,10 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
-import { TopicModule } from './topic/topic.module';
+import { FeedbackModule, TopicModule, UsersModule } from './module.export';
 
 @Module({
   imports: [
@@ -26,6 +25,7 @@ import { TopicModule } from './topic/topic.module';
     }),
     UsersModule,
     TopicModule,
+    FeedbackModule,
   ],
   controllers: [AppController],
   providers: [AppService],
