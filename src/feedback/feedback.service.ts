@@ -24,7 +24,9 @@ export class FeedbackService {
 
   async getFeedbackList(page?: number, order?: 'latest' | 'less' | 'popular') {
     const limit = 10;
-    let query = this.supabase.from('feedback').select('*');
+    let query = this.supabase
+      .from('feedback')
+      .select(`*, users:writer(name, profile_image)`);
 
     console.log(`page is : ${page}, order is : ${order}`);
 
