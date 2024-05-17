@@ -22,8 +22,11 @@ export class FeedbackService {
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
-  async getFeedbackList(page?: number, order?: 'latest' | 'less' | 'popular') {
-    const limit = 10;
+  async getFeedbackList(
+    page?: number,
+    order?: 'latest' | 'less' | 'popular',
+    limit: number = 10,
+  ) {
     let query = this.supabase
       .from('feedback')
       .select(`*, users:writer(name, profile_image)`);

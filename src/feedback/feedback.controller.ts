@@ -11,8 +11,9 @@ export class FeedbackController {
   getFeedbackList(
     @Query('page') page?: number,
     @Query('order') order?: 'latest' | 'less' | 'popular',
+    @Query('limit') limit?: number,
   ) {
-    return this.feedbackService.getFeedbackList(page, order);
+    return this.feedbackService.getFeedbackList(page, order, limit);
   }
 
   @Get(':id')
