@@ -13,7 +13,7 @@ export class FeedbackController {
     @Query('order') order?: 'latest' | 'less' | 'popular',
     @Query('limit') limit?: number,
   ) {
-    return this.feedbackService.getFeedbackList(page, order, limit);
+    return this.feedbackService.getFeedbackList(page, order, limit || 10);
   }
 
   @Get(':id')

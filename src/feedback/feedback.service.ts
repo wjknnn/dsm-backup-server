@@ -25,13 +25,13 @@ export class FeedbackService {
   async getFeedbackList(
     page?: number,
     order?: 'latest' | 'less' | 'popular',
-    limit: number = 10,
+    limit?: number,
   ) {
     let query = this.supabase
       .from('feedback')
       .select(`*, users:writer(name, profile_image)`);
 
-    console.log(`page is : ${page}, order is : ${order}`);
+    console.log(`page is : ${page}, order is : ${order}, limit is : ${limit}`);
 
     if (order === 'latest')
       query = query.order('created_at', { ascending: false });
