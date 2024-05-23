@@ -54,11 +54,14 @@ export class FeedbackService {
   async getFeedback(id: number) {
     const { data: feedbackData, error: feedbackError } = await this.supabase
       .from('feedback')
-      .select('*')
-      .eq('id', id);
+      .select(`*, users:writer(name, profile_image)`)
+      .eq('id', id)
+      .single();
 
     if (feedbackError) {
       throw new NotFoundException(`not found feedback id ${id}.`);
     }
+
+    return feedbackData;
   }
 }
