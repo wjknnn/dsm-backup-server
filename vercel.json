@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/app/main.ts",
+      "src": "src/main.ts",
       "use": "@vercel/node"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "src/app/main.ts",
+      "dest": "src/main.ts",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
     }
   ]

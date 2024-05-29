@@ -47,6 +47,9 @@ dependencies:
   class-validator:
     specifier: ^0.14.1
     version: 0.14.1
+  module-alias:
+    specifier: ^2.2.3
+    version: 2.2.3
   moment-timezone:
     specifier: ^0.5.45
     version: 0.5.45
@@ -4927,6 +4930,10 @@ packages:
     resolution: {integrity: sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==}
     engines: {node: '>=10'}
     hasBin: true
+    dev: false
+
+  /module-alias@2.2.3:
+    resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
     dev: false
 
   /moment-timezone@0.5.45:
