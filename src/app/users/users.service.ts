@@ -6,7 +6,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { getCurrentTime } from 'src/utils';
+import { getCurrentTime } from '@/utils';
 
 @Injectable()
 export class UsersService {
