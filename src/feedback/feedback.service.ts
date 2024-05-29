@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
-import { getCurrentTime } from '@/utils';
+import { getCurrentTime } from '../utils';
 
 @Injectable()
 export class FeedbackService {
