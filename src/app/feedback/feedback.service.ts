@@ -4,6 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { CreateFeedbackDto } from './dto/create-feedback.dto';
+import { getCurrentTime } from 'src/utils';
 
 @Injectable()
 export class FeedbackService {
@@ -63,5 +65,11 @@ export class FeedbackService {
     }
 
     return feedbackData;
+  }
+
+  async postFeedback(createFeedbackDto: CreateFeedbackDto) {
+    const { title, content, tags, writer } = createFeedbackDto;
+
+    const currentTime = getCurrentTime();
   }
 }

@@ -6,6 +6,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { getCurrentTime } from 'src/utils';
 
 @Injectable()
 export class UsersService {
@@ -27,8 +28,7 @@ export class UsersService {
   async signupUser(createUserDto: CreateUserDto) {
     const { id, name, grade, profileImage } = createUserDto;
 
-    const timeZone = 'Asia/Seoul';
-    const currentTime = new Date().toLocaleString('en-US', { timeZone });
+    const currentTime = getCurrentTime();
 
     const { data, error } = await this.supabase.from('users').insert<User>({
       id: id,
