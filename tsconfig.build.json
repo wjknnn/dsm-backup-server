@@ -5,8 +5,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/*": ["./src/*"],
+      "@/utils/*": ["./src/utils/*"]
     }
   }
 }
