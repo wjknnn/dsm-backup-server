@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { Users } from './entities/user.entity';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { getCurrentTime } from '../utils';
 
@@ -28,9 +28,9 @@ export class UsersService {
   async signupUser(createUserDto: CreateUserDto) {
     const { id, name, grade, profileImage } = createUserDto;
 
-    const currentTime = getCurrentTime();
+    const currentTime = getCurrentTime(true);
 
-    const { data, error } = await this.supabase.from('users').insert<User>({
+    const { data, error } = await this.supabase.from('users').insert<Users>({
       id: id,
       name: name,
       school_grade: grade || null,

@@ -1,6 +1,8 @@
-export const getCurrentTime = () => {
+export const getCurrentTime = (local?: boolean) => {
   const timeZone = 'Asia/Seoul';
-  const currentTime = new Date().toLocaleString('en-US', { timeZone });
+  const currentTime = local
+    ? new Date().toLocaleString('en-US', { timeZone })
+    : new Date().toUTCString();
 
   return currentTime;
 };

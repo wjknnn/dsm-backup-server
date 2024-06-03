@@ -14,8 +14,4 @@ export class CreateFeedbackDto {
   @IsArray()
   @IsString({ each: true })
   tags?: string[];
-
-  @ApiProperty()
-  @IsString()
-  writer: string;
 }

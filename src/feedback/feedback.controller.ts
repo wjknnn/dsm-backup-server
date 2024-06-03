@@ -1,6 +1,18 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth.guard';
+import { CreateFeedbackDto } from './dto/create-feedback.dto';
 
 @ApiTags('Feedback')
 @Controller('feedback')
@@ -19,5 +31,15 @@ export class FeedbackController {
   @Get(':id')
   getFeedback(@Param('id', ParseIntPipe) id: number) {
     return this.feedbackService.getFeedback(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post()
+  async uploadFeedback(
+    @Body() createFeedbackDto: CreateFeedbackDto,
+    @Request() req,
+  ) {
+    const writer = req.user.sub;
+    return this.feedbackService.postFeedback(createFeedbackDto, writer);
   }
 }

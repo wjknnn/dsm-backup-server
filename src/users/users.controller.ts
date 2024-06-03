@@ -17,7 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../auth.guard';
-import { User } from './entities/user.entity';
+import { Users } from './entities/user.entity';
 
 @ApiTags('User')
 @UseGuards(AuthGuard)
@@ -61,7 +61,7 @@ export class AuthController {
   @ApiBody({ type: CreateUserDto })
   @ApiCreatedResponse({
     description: '유저의 정보를 받아 회원가입해요.',
-    type: User,
+    type: Users,
   })
   async signupUser(@Body() createUserDto: CreateUserDto) {
     return await this.userService.signupUser(createUserDto);
