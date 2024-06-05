@@ -90,4 +90,17 @@ export class FeedbackService {
       throw new BadRequestException('Failed to upload feedback.');
     }
   }
+
+  async deleteFeedback(id: string, writer: string) {
+    console.log('delete!!');
+    const { error } = await this.supabase
+      .from('feedback')
+      .delete()
+      .eq('id', id)
+      .eq('writer', writer);
+
+    if (error) {
+      throw new BadRequestException('Feedback id or writer is wrong.');
+    }
+  }
 }

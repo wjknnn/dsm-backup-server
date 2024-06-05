@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -41,5 +42,11 @@ export class FeedbackController {
   ) {
     const writer = req.user.sub;
     return this.feedbackService.postFeedback(createFeedbackDto, writer);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  async deleteFeedback(@Param('id') id: string, @Request() req) {
+    return await this.feedbackService.deleteFeedback(id, req.user.sub);
   }
 }
