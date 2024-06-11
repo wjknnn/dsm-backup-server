@@ -29,6 +29,11 @@ export class FeedbackController {
     return this.feedbackService.getFeedbackList(page, order, limit || 10);
   }
 
+  @Get('/popular')
+  getPopularFeedbackList() {
+    return this.feedbackService.getPopularFeedbackList();
+  }
+
   @Get(':id')
   getFeedback(@Param('id', ParseIntPipe) id: number) {
     return this.feedbackService.getFeedback(id);

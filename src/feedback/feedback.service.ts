@@ -34,8 +34,6 @@ export class FeedbackService {
       .from('feedback')
       .select(`*, users:writer(name, profile_image)`);
 
-    console.log(`page is : ${page}, order is : ${order}, limit is : ${limit}`);
-
     if (order === 'latest')
       query = query.order('created_at', { ascending: false });
     else if (order === 'popular')
@@ -54,6 +52,20 @@ export class FeedbackService {
     return data;
   }
 
+  async getPopularFeedbackList() {
+    const { data, error } = await this.supabase
+      .from('feedback')
+      .select('*')
+      .order('views', { ascending: false })
+      .limit(20);
+
+    if (error) {
+      throw new BadRequestException(`can not get a popular feedback list.`);
+    }
+
+    return data;
+  }
+
   async getFeedback(id: number) {
     const { data: feedbackData, error: feedbackError } = await this.supabase
       .from('feedback')
@@ -65,7 +77,18 @@ export class FeedbackService {
       throw new NotFoundException(`not found feedback id ${id}.`);
     }
 
-    return feedbackData;
+    const updatedViews = feedbackData.views + 1;
+
+    const { error: viewsError } = await this.supabase
+      .from('feedback')
+      .update({ views: updatedViews })
+      .eq('id', id);
+
+    if (viewsError) {
+      throw new BadRequestException(`can not update view count.`);
+    }
+
+    return { ...feedbackData, views: updatedViews };
   }
 
   async postFeedback(createFeedbackDto: CreateFeedbackDto, writer: string) {
