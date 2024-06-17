@@ -39,6 +39,16 @@ export class FeedbackController {
     return this.feedbackService.getFeedback(id);
   }
 
+  @Get(':id/comment')
+  getFeedbackComment(@Param('id', ParseIntPipe) id: number) {
+    return this.feedbackService.getFeedbackComment(id);
+  }
+
+  @Get(':id/answer')
+  getFeedbackAnswer(@Param('id', ParseIntPipe) id: number) {
+    return this.feedbackService.getFeedbackAnswer(id);
+  }
+
   @UseGuards(AuthGuard)
   @Post()
   async uploadFeedback(

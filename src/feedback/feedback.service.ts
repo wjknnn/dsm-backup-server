@@ -69,7 +69,7 @@ export class FeedbackService {
   async getFeedback(id: number) {
     const { data: feedbackData, error: feedbackError } = await this.supabase
       .from('feedback')
-      .select(`*, users:writer(name, profile_image)`)
+      .select(`*, users:writer(name, profile_image), feedback_comment(count)`)
       .eq('id', id)
       .single();
 
@@ -88,7 +88,37 @@ export class FeedbackService {
       throw new BadRequestException(`can not update view count.`);
     }
 
-    return { ...feedbackData, views: updatedViews };
+    return {
+      ...feedbackData,
+      views: updatedViews,
+      feedback_comment: feedbackData.feedback_comment[0].count,
+    };
+  }
+
+  async getFeedbackComment(id: number) {
+    const { data, error } = await this.supabase
+      .from('feedback_comment')
+      .select('*')
+      .eq('feedback', id);
+
+    if (error) {
+      throw new BadRequestException(`can not get feedback ${id} comment.`);
+    }
+
+    return data;
+  }
+
+  async getFeedbackAnswer(id: number) {
+    const { data, error } = await this.supabase
+      .from('feedback_answer')
+      .select('*, users:writer(name, profile_image), feedback_comment(count)')
+      .eq('feedback', id);
+
+    if (error) {
+      throw new BadRequestException(`can not get feedback ${id} answer.`);
+    }
+
+    return data;
   }
 
   async postFeedback(createFeedbackDto: CreateFeedbackDto, writer: string) {
