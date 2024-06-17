@@ -98,7 +98,7 @@ export class FeedbackService {
   async getFeedbackComment(id: number) {
     const { data, error } = await this.supabase
       .from('feedback_comment')
-      .select('*')
+      .select('*, users:writer(name)')
       .eq('feedback', id);
 
     if (error) {
