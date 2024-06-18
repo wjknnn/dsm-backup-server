@@ -99,7 +99,8 @@ export class FeedbackService {
     const { data, error } = await this.supabase
       .from('feedback_comment')
       .select('*, users:writer(name)')
-      .eq('feedback', id);
+      .eq('feedback', id)
+      .order('created_at', { ascending: false });
 
     if (error) {
       throw new BadRequestException(`can not get feedback ${id} comment.`);
@@ -112,7 +113,9 @@ export class FeedbackService {
     const { data, error } = await this.supabase
       .from('feedback_answer')
       .select('*, users:writer(name, profile_image), feedback_comment(count)')
-      .eq('feedback', id);
+      .eq('feedback', id)
+      .order('like', { ascending: false })
+      .order('created_at', { ascending: false });
 
     if (error) {
       throw new BadRequestException(`can not get feedback ${id} answer.`);
