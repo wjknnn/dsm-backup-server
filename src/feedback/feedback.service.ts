@@ -122,6 +122,7 @@ export class FeedbackService {
       .from('feedback_answer')
       .select('*, users:writer(name, profile_image), feedback_comment(count)')
       .eq('feedback', id)
+      .order('pick', { ascending: true })
       .order('like', { ascending: false })
       .order('created_at', { ascending: false });
 
