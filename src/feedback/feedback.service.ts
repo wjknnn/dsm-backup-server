@@ -95,12 +95,20 @@ export class FeedbackService {
     };
   }
 
-  async getFeedbackComment(id: number) {
-    const { data, error } = await this.supabase
+  async getFeedbackComment(id: number, answer: boolean) {
+    let query = this.supabase
       .from('feedback_comment')
-      .select('*, users:writer(name)')
-      .eq('feedback', id)
-      .order('created_at', { ascending: false });
+      .select('*, users:writer(name)');
+
+    if (answer) {
+      query = query.eq('answer', id);
+    } else {
+      query = query.eq('feedback', id);
+    }
+
+    query = query.order('created_at', { ascending: false });
+
+    const { data, error } = await query;
 
     if (error) {
       throw new BadRequestException(`can not get feedback ${id} comment.`);

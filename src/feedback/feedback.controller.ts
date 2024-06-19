@@ -40,8 +40,11 @@ export class FeedbackController {
   }
 
   @Get(':id/comment')
-  getFeedbackComment(@Param('id', ParseIntPipe) id: number) {
-    return this.feedbackService.getFeedbackComment(id);
+  getFeedbackComment(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('answer') answer: boolean,
+  ) {
+    return this.feedbackService.getFeedbackComment(id, answer);
   }
 
   @Get(':id/answer')
