@@ -123,8 +123,8 @@ export class FeedbackService {
       .select('*, users:writer(name, profile_image), feedback_comment(count)')
       .eq('feedback', id)
       .order('pick', { ascending: false })
-      .order('like', { ascending: false })
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .order('like', { ascending: false });
 
     if (error) {
       throw new BadRequestException(`can not get feedback ${id} answer.`);
