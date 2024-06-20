@@ -8,8 +8,8 @@ export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
   @Get('/all')
-  getTopicList(@Query('limit') limit?: number) {
-    return this.topicService.getTopicList(limit);
+  getTopicList(@Query('page') page?: number, @Query('limit') limit?: number) {
+    return this.topicService.getTopicList(page, limit || 20);
   }
 
   @Get(':id')

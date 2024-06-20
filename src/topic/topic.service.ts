@@ -22,13 +22,13 @@ export class TopicService {
     this.supabase = createClient(supabaseUrl, supabaseKey);
   }
 
-  async getTopicList(limit?: number) {
+  async getTopicList(page?: number, limit?: number) {
     let query = this.supabase
       .from('topic')
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (limit) query = query.limit(limit);
+    query = query.range(limit * (page - 1), limit * page).limit(limit);
 
     const { data, error } = await query;
 
