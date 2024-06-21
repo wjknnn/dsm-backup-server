@@ -47,7 +47,7 @@ export class TopicService {
 
     const { data: topicComment, error: commentError } = await this.supabase
       .from('topic_comment')
-      .select('*')
+      .select('*, user(id, name, profile_image)')
       .eq('topic', id)
       .order('created_at', { ascending: false });
 
