@@ -72,6 +72,7 @@ export class TopicService {
     const topicDetail = {
       ...topicData[0],
       comment: resultComment,
+      commentCount: topicComment.length,
     };
 
     return topicDetail;
