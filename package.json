@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "nest build && cp -R swagger-static ./dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start swc --watch",
@@ -90,3 +90,4 @@
     "testEnvironment": "node"
   }
 }
+
