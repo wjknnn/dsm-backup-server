@@ -18,7 +18,7 @@ async function bootstrap() {
     .setTitle('DSM Backup API')
     .setDescription('Backup 프로젝트에 사용되는 API 에요.')
     .setVersion('1.0')
-    .addServer('https://dsm-backup-server.vercel.app/api/docs')
+    .addServer('https://server.dsm-backup.com/api/docs')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
