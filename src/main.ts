@@ -3,6 +3,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { resolve } from 'path';
+import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -18,10 +20,19 @@ async function bootstrap() {
     .setTitle('DSM Backup API')
     .setDescription('Backup 프로젝트에 사용되는 API 에요.')
     .setVersion('1.0')
-    .addServer('https://server.dsm-backup.com/api-docs')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document);
+  SwaggerModule.setup('/swagger', app, document);
   await app.listen(process.env.PORT || '8080');
+  if (process.env.ISDEV === 'dev') {
+    const pathToSwaggerStaticFolder = resolve(process.cwd(), 'swagger-static');
+    const pathToSwaggerJson = resolve(
+      pathToSwaggerStaticFolder,
+      'swagger.json',
+    );
+    const swaggerJson = JSON.stringify(document, null, 2);
+    writeFileSync(pathToSwaggerJson, swaggerJson);
+    console.log(`Swagger JSON file written to: '/swagger-static/swagger.json'`);
+  }
 }
 bootstrap();

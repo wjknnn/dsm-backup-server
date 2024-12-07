@@ -5,9 +5,15 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { FeedbackModule, TopicModule, UsersModule } from './module.export';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'swagger-static'),
+      serveRoot: process.env.ISDEV === 'dev' ? '/' : '/swagger',
+    }),
     ConfigModule.forRoot({ cache: true, isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
