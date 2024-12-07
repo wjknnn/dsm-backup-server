@@ -11,15 +11,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(
-        __dirname,
-        '..',
-        'swagger-static',
-        'node_modules',
-        '@nestjs/swagger',
-        'dist',
-        'static',
-      ),
+      rootPath: join(__dirname, '..', 'swagger-static'),
       serveRoot: process.env.ISDEV === 'dev' ? '/' : '/swagger',
     }),
     ConfigModule.forRoot({ cache: true, isGlobal: true }),
